@@ -161,15 +161,18 @@ def ProcessDir(indir, is_parent=True, subdirs=[]):
     # Do links to other pages
     links = ''
     if not is_parent or len(subdirs) > 0:
-        links += '<p><strong>Current directory:</strong> %s | <strong>Navigation:</strong> ' % indir
+        links += '<p><strong>Current directory:</strong> %s</p>' % indir
+
+        links += '<p><strong>Navigation:</strong> '
         if not is_parent:
-            links += ' <a href="../index.html">[Up]</a>'
+            links += ' <a href="../index.html">[Up]</a></p>'
+        else:
+            links += ' </p>'
+
         for i, subdir in enumerate(subdirs):
-            if i != 0:
-                links += ' | '
-            links += ' <a href="{SUBDIR}/index.html">{SUBDIR}</a>'.format(
+            links += '<p><a href="{SUBDIR}/index.html">{SUBDIR}</a></p>'.format(
                 SUBDIR=subdir)
-        links += '</p>'
+            
     index = index.replace('{LINKS}', links)
 
     # Write the html to the output folder
